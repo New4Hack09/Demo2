@@ -27,7 +27,7 @@ function openServiceForm(type) { openModal(`${type}FormModal`); }
 function openEnquiryForm() { openModal('enquiryFormModal'); }
 
 function openPackageForm(packageId) {
-    const pkg = packages.find(p => p.id === packageId);
+    const pkg = packagesData.find(p => p.id === packageId);
     if(pkg) {
         document.getElementById('pkgFormName').value = pkg.title;
         document.getElementById('pkgFormId').value = pkg.id;

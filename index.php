@@ -36,6 +36,42 @@ $businessInfoJS = json_encode([
         'youtube' => $settings['youtube'] ?? '#'
     ]
 ]);
+
+// Hardcoded Services since they have specific dynamic forms attached
+$services = [
+    [
+        "id" => "flight",
+        "title" => "Flight Booking",
+        "icon" => "fa-plane",
+        "image" => "assets/images/services/flight.jpg",
+        "description" => "Find convenient flights for your next journey.",
+        "cta" => "Book Your Flight"
+    ],
+    [
+        "id" => "hotel",
+        "title" => "Hotel Booking",
+        "icon" => "fa-bed",
+        "image" => "assets/images/services/hotel.jpg",
+        "description" => "Choose comfortable stays at your destination.",
+        "cta" => "Book Your Hotel"
+    ],
+    [
+        "id" => "bus",
+        "title" => "Bus Booking",
+        "icon" => "fa-bus",
+        "image" => "assets/images/services/bus.jpg",
+        "description" => "Travel comfortably with convenient bus options.",
+        "cta" => "Book Your Bus"
+    ],
+    [
+        "id" => "train",
+        "title" => "Train Booking",
+        "icon" => "fa-train",
+        "image" => "assets/images/services/train.jpg",
+        "description" => "Plan your train journey with ease.",
+        "cta" => "Book Your Train"
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -171,9 +207,22 @@ $businessInfoJS = json_encode([
         <div class="container">
             <div class="section-header text-center gsap-fade-up">
                 <h2>Our Services</h2>
+                <p>Everything you need for a perfect trip</p>
             </div>
             <div class="services-grid" id="servicesGrid">
-                <!-- Injected via JS -->
+                <?php foreach($services as $s): ?>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="<?= htmlspecialchars($s['image']) ?>" alt="<?= htmlspecialchars($s['title']) ?>" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=400'">
+                    </div>
+                    <div class="service-icon"><i class="fa-solid <?= htmlspecialchars($s['icon']) ?>"></i></div>
+                    <div class="service-content">
+                        <h3><?= htmlspecialchars($s['title']) ?></h3>
+                        <p><?= htmlspecialchars($s['description']) ?></p>
+                        <button class="btn btn-outline" style="color: var(--color-primary); border-color: var(--color-primary); margin-top: auto;" onclick="openServiceForm('<?= htmlspecialchars($s['id']) ?>')"><?= htmlspecialchars($s['cta']) ?></button>
+                    </div>
+                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
@@ -323,7 +372,7 @@ $businessInfoJS = json_encode([
         <button class="bottom-action primary" onclick="openEnquiryForm()"><i class="fa-solid fa-paper-plane"></i> Plan Trip</button>
     </div>
 
-    <!-- Forms HTML (Same structure as before) -->
+    <!-- Forms HTML -->
     <?php require_once 'modals.php'; ?>
 
     <!-- Scripts -->
