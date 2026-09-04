@@ -1,15 +1,31 @@
 // WhatsApp Message Generators
-
 function encodeForWhatsApp(text) {
     return encodeURIComponent(text);
 }
 
 function openWhatsApp(message) {
+    // Determine if mobile device
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const waNumber = businessInfo.whatsapp;
-    const url = `https://wa.me/${waNumber}?text=${encodeForWhatsApp(message)}`;
-    window.open(url, '_blank');
+    let url = '';
+
+    if (isMobile) {
+        url = `whatsapp://send?phone=${waNumber}&text=${encodeForWhatsApp(message)}`;
+    } else {
+        url = `https://web.whatsapp.com/send?phone=${waNumber}&text=${encodeForWhatsApp(message)}`;
+    }
+
+    // Prevent popup blocker by using location.href or opening in same tab if needed
+    // Using a dynamic a tag click often works better than window.open
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
 
+// (The rest of the functions remain the same)
 function generateFlightMessage(data) {
     let msg = `*AR TRAVELS — FLIGHT BOOKING REQUEST*\n\n`;
     msg += `*Customer Details*\nName: ${data.name}\nMobile: ${data.mobile}\nWhatsApp: ${data.whatsapp}\n`;

@@ -32,12 +32,33 @@ document.addEventListener('DOMContentLoaded', () => {
         y: 50, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power2.out"
     });
 
+    const screenWidth = window.innerWidth;
+
+    // Plane 1 (Left to Right)
     const plane = document.getElementById('flyingPlane');
     if(plane) {
-        const screenWidth = window.innerWidth;
         gsap.to(plane, {
             scrollTrigger: { trigger: ".airplane-transition", start: "top 70%", end: "bottom top", scrub: 1 },
             x: screenWidth + 300, y: -100, rotation: -5, scale: 1.2, ease: "power1.inOut"
+        });
+    }
+
+    // Plane 2 (Right to Left)
+    const plane2 = document.getElementById('flyingPlane2');
+    if(plane2) {
+        gsap.set(plane2, { x: screenWidth + 150 }); // Start on right
+        gsap.to(plane2, {
+            scrollTrigger: { trigger: ".airplane-transition-2", start: "top 70%", end: "bottom top", scrub: 1 },
+            x: -300, y: -100, rotation: 5, scale: 1.2, ease: "power1.inOut"
+        });
+    }
+
+    // Train (Left to Right straight)
+    const train = document.getElementById('movingTrain');
+    if(train) {
+        gsap.to(train, {
+            scrollTrigger: { trigger: ".train-transition", start: "top 80%", end: "bottom top", scrub: 1 },
+            x: screenWidth + 300, ease: "none"
         });
     }
 });

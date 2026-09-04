@@ -211,3 +211,27 @@
         border: none;
     }
 }
+
+/* Fix Mobile Grids to show 2 items & Hero Video */
+@media (max-width: 768px) {
+    .destinations-grid, .packages-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    .dest-img { height: 150px; }
+    .pkg-img { height: 150px; }
+    .dest-overlay h3, .pkg-content h3 { font-size: 1rem; }
+    .dest-info p, .pkg-duration { font-size: 0.8rem; }
+    .pkg-actions { display: flex; flex-direction: column; gap: 0.5rem; }
+    .pkg-price-row { flex-direction: column; align-items: flex-start; }
+    .new-price { font-size: 1.2rem; }
+
+    .hero { min-height: 400px; height: 60vh; }
+    .hero-content h1 { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+    /* For very small screens, fallback to 1 col if needed, but keeping 2 col per request */
+    .dest-info { padding: 0.8rem; }
+    .pkg-content { padding: 0.8rem; }
+}
